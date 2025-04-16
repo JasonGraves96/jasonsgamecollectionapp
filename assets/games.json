@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Halo",
+    "platform": "Xbox",
+    "notes": "Greatest Hits Version",
+    "hasManual": true,
+    "hasBox": true,
+    "imageUrl": ""
+  },
+  {
+    "title": "Mario",
+    "platform": "Nintendo Switch",
+    "notes": "",
+    "hasManual": true,
+    "hasBox": true,
+    "imageUrl": ""
+  }
+]
