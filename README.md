@@ -1,4 +1,5 @@
 Contact me if you want the standalone build which can be installed onto any iOS devices via Xcode.
+
 This is my game collection tracker app built for CEN-4360C-24212 at Valencia College
 
 Written by Jason Graves, 4/16/2025
