@@ -6,8 +6,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { GameContext } from "../contexts/GameContext";
 
 // TODO: replace with your real Google Custom Search credentials
-const GOOGLE_API_KEY = "AIzaSyAl9PUQsYkydEqlUPhQ50fZlync_WJczNI";
-const GOOGLE_CX = "715976fdfa93448f2";
+const GOOGLE_API_KEY = "insert here";
+const GOOGLE_CX = "insert here";
 
 const EditGameScreen = ({ navigation, route }) => {
   // Expect the game data to be passed in route.params
