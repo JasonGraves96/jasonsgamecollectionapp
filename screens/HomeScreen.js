@@ -1,12 +1,15 @@
 // screens/HomeScreen.js
 import React, { useState, useContext } from "react";
-import { SafeAreaView, StyleSheet, Text, View, Image, ScrollView } from "react-native";
-import { TextInput } from "react-native-paper";
+import { SafeAreaView, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { TextInput, Button } from "react-native-paper";
 import { GameContext } from "../contexts/GameContext";
+
 
 export default function HomeScreen() {
   const [searchTerm, setSearchTerm] = useState("");
   const { games } = useContext(GameContext); // Use real game data
+  const navigation = useNavigation();
 
   // Filter games from context based on the search term
   const filteredGames =
@@ -42,9 +45,19 @@ export default function HomeScreen() {
         <ScrollView contentContainerStyle={styles.listContainer}>
           {filteredGames.length > 0 ? (
             filteredGames.map((game, index) => (
-              <Text key={index} style={styles.gameTitle}>
-                {game.title} – {game.platform}
-              </Text>
+              <TouchableOpacity
+                key={game.id ?? index}
+                onPress={() =>
+                  navigation.navigate("Collection", {
+                    screen: "GameList",
+                    params: { selectedGameId: game.id },
+                  })
+                }
+              >
+                <Text style={styles.gameTitle}>
+                  {game.title} – {game.platform}
+                </Text>
+              </TouchableOpacity>
             ))
           ) : (
             <Text style={styles.gameTitle}>No games found.</Text>

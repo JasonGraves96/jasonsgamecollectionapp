@@ -1,0 +1,264 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2821
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+  <meta charset="UTF-8">\
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+  <title>jason-graves.net</title>\
+  <style>\
+    body \{\
+      background: linear-gradient(135deg, #008080, #FF00FF);\
+      color: #000;\
+      font-family: "Comic Sans MS", "Impact", sans-serif;\
+      text-align: center;\
+      min-height: 100vh;\
+      margin: 0;\
+      padding: 0;\
+      transition: background 0.1s linear;\
+    \}\
+    header \{\
+      background-color: #00FFDE;\
+      padding: 0.1em;\
+      border-bottom: 2px ridge #0000FF;\
+    \}\
+    nav a \{\
+      display: inline-block;\
+      padding: 5px;\
+      margin: 5px;\
+      background-color: #FFFF00;\
+      color: #000;\
+      text-decoration: none;\
+      border: 2px outset #000;\
+      font-weight: bold;\
+    \}\
+    nav a:hover \{ background-color: #FFA500; \}\
+    .gif-img \{ height: auto; \}\
+\
+    .tv-container \{\
+      position: relative;\
+      width: 80%;\
+      max-width: 850px;\
+      margin: 20px auto;\
+    \}\
+    .tv-frame \{\
+      display: block;\
+      width: 100%;\
+      height: auto;\
+      position: relative;\
+      z-index: 1;\
+    \}\
+    .content-frame \{\
+      position: absolute;\
+      top: 10%; left: 14%;\
+      width: 49.8%; height: 65%;\
+      border: 3px groove #0000FF;\
+      background: #00FFDE;\
+      transition: filter 0.5s ease;\
+      z-index: 2;\
+    \}\
+    .content-frame.grayscale \{ filter: grayscale(100%); \}\
+    .content-frame.tint      \{ filter: hue-rotate(90deg) saturate(200%); \}\
+    .content-frame.bright    \{ filter: brightness(150%); \}\
+    .content-frame.contrast  \{ filter: contrast(200%); \}\
+    .content-frame.sharp     \{ filter: url(#sharpen); \}\
+    .content-frame.vhold \{\
+      animation: vhold-shake 0.2s infinite;\
+    \}\
+    @keyframes vhold-shake \{\
+      0%,100% \{ transform: translateY(0); \}\
+      25% \{ transform: translateY(-2px); \}\
+      50% \{ transform: translateY(2px); \}\
+      75% \{ transform: translateY(-1px); \}\
+    \}\
+    .eject-menu \{\
+      position: absolute;\
+      top: 0; left: 0;\
+      width: 100%; height: 100%;\
+      display: none;\
+      z-index: 3;\
+      background: rgba(0,0,0,0.7);\
+      border: 4px solid #00FFDE;\
+      box-shadow: 0 0 10px #0000FF;\
+      backdrop-filter: blur(2px);\
+    \}\
+    .eject-menu img \{\
+      position: absolute;\
+      cursor: pointer;\
+      border: none;\
+      transition: transform 0.2s ease;\
+    \}\
+    .eject-menu img:hover \{ transform: scale(1.1); z-index: 4; \}\
+    .eject-menu .eject-title \{\
+      position: absolute;\
+      top: 1%; left: 50%;\
+      transform: translateX(-50%);\
+      font-family: Impact, sans-serif;\
+      font-size: 3.5em;\
+      color: #FFF;\
+      text-shadow: 2px 2px #000;\
+      z-index: 4;\
+    \}\
+    .menu-gw   \{ top:-8%; left:-4%; width:50%; \}\
+    .menu-tg16 \{ top:-8%; right:-4%; width:50%; \}\
+    .menu-ct   \{ top:19%; left:23%; width:50%; \}\
+    .menu-gs   \{ bottom:-8%; left:-4%; width:50%; \}\
+    .menu-3do  \{ bottom:-8%; right:-4%; width:50%; \}\
+    .tv-btn \{\
+      position: absolute;\
+      background: transparent;\
+      border: none;\
+      cursor: pointer;\
+      transition: box-shadow 0.2s ease-in-out;\
+      z-index: 4;\
+    \}\
+    .tv-btn:hover \{ box-shadow: 0 0 10px 3px rgba(255,165,0,0.7); \}\
+    .power-btn     \{ top:83%; left:17.5%; width:3%; height:5%; \}\
+    .headphone-btn \{ top:89%; left:13%; width:2%; height:3%; \}\
+    .vhold-btn     \{ top:86.2%; left:42%; width:2.5%; height:4%; \}\
+    .sharp-btn     \{ top:86.2%; left:46%; width:2.5%; height:4%; \}\
+    .contrast-btn  \{ top:86.2%; left:50%; width:2.5%; height:4%; \}\
+    .bright-btn    \{ top:86.2%; left:54%; width:2.5%; height:4%; \}\
+    .tint-btn      \{ top:86.2%; left:58%; width:2.5%; height:4%; \}\
+    .colour-btn    \{ top:86.2%; left:62%; width:2.5%; height:4%; \}\
+    .eject-btn     \{ top:10%; left:71.6%; width:3%; height:3%; \}\
+    .reset-btn     \{ top:25.5%; left:71.2%; width:2.5%; height:3%; \}\
+    .rewind-btn    \{ top:34%; left:70.5%; width:4.3%; height:3%; \}\
+    .ff-btn        \{ top:34%; left:75.7%; width:4.3%; height:3%; \}\
+    .play-btn      \{ top:41.5%; left:70.5%; width:9.5%; height:6%; \}\
+    .stop-btn      \{ top:50.5%; left:70.5%; width:9.5%; height:6%; \}\
+    .still-btn     \{ top:60%; left:70.5%; width:4.3%; height:3%; \}\
+    .slow-btn      \{ top:60%; left:75.5%; width:4.3%; height:3%; \}\
+    .volume-btn    \{ top:70%; left:70%; width:10%; height:10%; \}\
+    footer \{ margin-top:20px; font-size:24px; \}\
+    .static-overlay \{\
+      position: absolute;\
+      top: 10%; left: 14%;\
+      width: 49.8%; height: 65%;\
+      z-index: 3;\
+      display: none;\
+    \}\
+  </style>\
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0">\
+    <filter id="sharpen"><feConvolveMatrix order="3" kernelMatrix="0 -1 0 -1 5 -1 0 -1 0"/></filter>\
+  </svg>\
+</head>\
+<body>\
+  <header>\
+    <h1>\
+      <img class="gif-img" src="images/head_construction.gif" alt="Under Construction">\
+      <img class="gif-img" src="images/jg title.gif" alt="Title GIF">\
+      <img class="gif-img" src="images/g1.gif" alt="Decorative GIF">\
+    </h1>\
+  </header>\
+  <nav>\
+    <a href="default.html" target="contentFrame">Home</a>\
+    <a href="aboutme.html" target="contentFrame">About Me</a>\
+    <a href="myskills.html" target="contentFrame">Skills</a>\
+    <a href="youtube.html" target="contentFrame">YouTube</a>\
+    <a href="github.html" target="contentFrame">GitHub</a>\
+    <a href="resume.html" target="contentFrame">Resume</a>\
+  </nav>\
+  <div class="tv-container">\
+    <img class="tv-frame" src="images/tv.png" alt="Retro TV">\
+    <iframe id="ytplayer" class="content-frame" name="contentFrame" src="default.html" frameborder="0" allow="autoplay; encrypted-media"></iframe>\
+    <img id="staticOverlay" class="static-overlay" src="images/static.jpeg" alt="Static">\
+    <div class="eject-menu" id="ejectMenu">\
+      <div class="eject-title">Pick A Video!</div>\
+      <img class="menu-gw" data-video="y-8XNtI8e5M" src="images/gw VHS.png" alt="GW">\
+      <img class="menu-tg16" data-video="5DAmGHJxsdY" src="images/TG 16 VHS.png" alt="TG16">\
+      <img class="menu-ct" data-video="fPEZJY-SPl8" src="images/CT VHS.png" alt="CT">\
+      <img class="menu-gs" data-video="t9mjtTQL-9w" src="images/GS VHS.png" alt="GS">\
+      <img class="menu-3do" data-video="iPG-DUMGMfA" src="images/3do VHS.png" alt="3do">\
+    </div>\
+    <button class="tv-btn headphone-btn"></button>\
+    <button class="tv-btn vhold-btn"></button>\
+    <button class="tv-btn sharp-btn"></button>\
+    <button class="tv-btn contrast-btn"></button>\
+    <button class="tv-btn bright-btn"></button>\
+    <button class="tv-btn tint-btn"></button>\
+    <button class="tv-btn colour-btn"></button>\
+    <button class="tv-btn eject-btn" id="ejectBtn"></button>\
+    <button class="tv-btn reset-btn"></button>\
+    <button class="tv-btn rewind-btn"></button>\
+    <button class="tv-btn ff-btn"></button>\
+    <button class="tv-btn play-btn"></button>\
+    <button class="tv-btn stop-btn"></button>\
+    <button class="tv-btn still-btn"></button>\
+    <button class="tv-btn slow-btn"></button>\
+    <button class="tv-btn volume-btn"></button>\
+    <button class="tv-btn power-btn"></button>\
+  </div>\
+  <footer><marquee>The OFFICIAL website of Jason Graves (not the composer)</marquee></footer>\
+  <script src="https://www.youtube.com/iframe_api"></script>\
+  <script>\
+    let player;\
+    let apiReady = false;\
+    let staticShown = false;\
+\
+    function onYouTubeIframeAPIReady() \{\
+      apiReady = true;\
+    \}\
+\
+    function initPlayer(id) \{\
+      player = new YT.Player('ytplayer', \{ videoId: id, events: \{ onReady: () => \{\} \} \});\
+    \}\
+\
+    function loadVideo(id) \{\
+      if (!apiReady) return;\
+      hideStatic();\
+      const frame = document.getElementById('ytplayer');\
+      if (!player) \{\
+        frame.src = `https://www.youtube.com/embed/$\{id\}?enablejsapi=1`;\
+        initPlayer(id);\
+      \} else \{\
+        player.loadVideoById(id);\
+      \}\
+      // Hide menu when video chosen\
+      document.getElementById('ejectMenu').style.display = 'none';\
+    \}\
+\
+    function showStatic() \{ document.getElementById('staticOverlay').style.display = 'block'; \}\
+    function hideStatic() \{ document.getElementById('staticOverlay').style.display = 'none'; \}\
+\
+    // Power toggle\
+    document.querySelector('.power-btn').onclick = () => \{\
+      staticShown ? hideStatic() : showStatic();\
+      staticShown = !staticShown;\
+    \};\
+\
+    // Eject menu toggle\
+    document.getElementById('ejectBtn').onclick = () => \{\
+      const menu = document.getElementById('ejectMenu');\
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';\
+    \};\
+\
+    // Tape selection (menu hiding now handled in loadVideo)\
+    document.querySelectorAll('#ejectMenu img').forEach(img => \{\
+      img.onclick = () => loadVideo(img.dataset.video);\
+    \});\
+\
+    // Controls\
+    document.querySelector('.play-btn').onclick = () => player && player.playVideo();\
+    document.querySelector('.stop-btn').onclick = () => player && player.stopVideo();\
+    document.querySelector('.volume-btn').onclick = () => \{ if (player) player.isMuted() ? player.unMute() : player.mute(); \};\
+\
+    // Filter toggles\
+    const iframeEl = document.querySelector('.content-frame');\
+    document.querySelector('.colour-btn').onclick   = () => iframeEl.classList.toggle('grayscale');\
+    document.querySelector('.tint-btn').onclick     = () => iframeEl.classList.toggle('tint');\
+    document.querySelector('.bright-btn').onclick   = () => iframeEl.classList.toggle('bright');\
+    document.querySelector('.contrast-btn').onclick = () => iframeEl.classList.toggle('contrast');\
+    document.querySelector('.sharp-btn').onclick    = () => iframeEl.classList.toggle('sharp');\
+    document.querySelector('.vhold-btn').onclick    = () => iframeEl.classList.toggle('vhold');\
+\
+    // Dynamic background\
+    document.onmousemove = e => document.body.style.background = `linear-gradient($\{(e.clientX/window.innerWidth)*360\}deg, #008080, #FF00FF)`;\
+  </script>\
+</body>\
+</html>}

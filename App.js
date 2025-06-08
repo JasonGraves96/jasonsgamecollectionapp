@@ -11,6 +11,7 @@ import AddGameScreen from "./screens/AddGameScreen";
 import GameListScreen from "./screens/GameListScreen";
 import PlatformGamesScreen from "./screens/PlatformGamesScreen";
 import EditGameScreen from "./screens/EditGameScreen"; // Ensure this file exists
+import StatsScreen from "./screens/StatsScreen";
 
 // Create a Stack Navigator for the Collection flow
 const CollectionStack = createStackNavigator();
@@ -60,6 +61,17 @@ export default function App() {
                 tabBarLabel: "Home",
                 tabBarIcon: ({ color, size }) => (
                   <MaterialCommunityIcons name="home" color={color} size={size} />
+                )
+              }}
+            />
+            {/* Stats Tab */}
+            <Tab.Screen
+              name="Stats"
+              component={StatsScreen}
+              options={{
+                tabBarLabel: "Stats",
+                tabBarIcon: ({ color, size }) => (
+                  <MaterialCommunityIcons name="chart-bar" color={color} size={size} />
                 )
               }}
             />

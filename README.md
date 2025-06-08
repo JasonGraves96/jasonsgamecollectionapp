@@ -1,9 +1,8 @@
-Contact me if you want the standalone build which can be installed onto any iOS devices via Xcode.
+# Welcome to your Expo app 👋
 
-This is my game collection tracker app built for CEN-4360C-24212 at Valencia College
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-Written by Jason Graves, 4/16/2025
-
+## Get started
 
 1. Install dependencies
 

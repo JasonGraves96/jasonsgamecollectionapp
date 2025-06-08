@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
+  FlatList,
   TouchableOpacity,
   Image,
   LayoutAnimation,
@@ -57,31 +57,21 @@ const GameCard = ({ game, navigation }) => {
   return (
     <TouchableOpacity onPress={toggleExpanded} activeOpacity={0.8}>
       <View style={styles.card}>
-        <View style={styles.cardRow}>
-          {/* Left: Game image */}
-          <View style={styles.imageContainer}>
-            <Image source={gameImageSource} style={styles.gameImage} />
-          </View>
-          {/* Middle: Game title */}
-          <View style={styles.cardContent}>
-            <Text style={styles.gameTitle}>{game.title}</Text>
-          </View>
-          {/* Right: Action icons */}
-          <View style={styles.actionColumn}>
-            <MaterialCommunityIcons
-              name="pencil"
-              size={24}
-              color="#7FA184"
-              onPress={() => navigation.navigate("EditGame", { game })}
-            />
-            <MaterialCommunityIcons
-              name="delete"
-              size={24}
-              color="#FF4500"
-              onPress={confirmDelete}
-              style={{ marginTop: 15 }}
-            />
-          </View>
+        <Text style={styles.gameTitle}>{game.title}</Text>
+        <Image source={gameImageSource} style={styles.cardImage} />
+        <View style={styles.cardActions}>
+          <MaterialCommunityIcons
+            name="pencil"
+            size={24}
+            color="#7FA184"
+            onPress={() => navigation.navigate("EditGame", { game })}
+          />
+          <MaterialCommunityIcons
+            name="delete"
+            size={24}
+            color="#FF4500"
+            onPress={confirmDelete}
+          />
         </View>
         {/* Expanded Content */}
         {expanded && (
@@ -124,15 +114,24 @@ const PlatformGamesScreen = ({ route, navigation }) => {
         />
         <Text style={styles.headerText}>{platform} Games</Text>
       </View>
-      <ScrollView contentContainerStyle={styles.gamesContainer}>
-        {filteredGames.length === 0 ? (
-          <Text style={styles.noGamesText}>No games found for {platform}.</Text>
-        ) : (
-          filteredGames.map((game) => (
-            <GameCard key={game.id} game={game} navigation={navigation} />
-          ))
-        )}
-      </ScrollView>
+      {filteredGames.length === 0 ? (
+        <Text style={styles.noGamesText}>No games found for {platform}.</Text>
+      ) : (
+        <FlatList
+          key="two-column"
+          data={filteredGames}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          contentContainerStyle={styles.gamesContainer}
+          renderItem={({ item }) => (
+            <View style={styles.gridItem}>
+              <View style={{ flex: 1 }}>
+                <GameCard game={item} navigation={navigation} />
+              </View>
+            </View>
+          )}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -157,20 +156,36 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
     padding: 10,
-    marginBottom: 10,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 4,
+    overflow: "visible",
+    alignItems: "center",
   },
+  /*
   cardRow: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   imageContainer: { marginRight: 10 },
   gameImage: { width: 80, height: 80, borderRadius: 10 },
+  */
+  cardImage: {
+    width: "100%",
+    aspectRatio: 1,
+    borderRadius: 8,
+    marginVertical: 8,
+  },
+  cardActions: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginTop: 8,
+  },
   cardContent: { flex: 1 },
   gameTitle: {
     fontSize: 18,
@@ -199,6 +214,10 @@ const styles = StyleSheet.create({
   // The highlight effect when the card is pressed (optional since we're using toggleExpanded)
   platformCardPressed: {
     backgroundColor: "#DFF0D8",
+  },
+  gridItem: {
+    flex: 1,
+    margin: 8,
   },
 });
 

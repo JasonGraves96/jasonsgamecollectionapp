@@ -1,5 +1,8 @@
 // screens/AddGameScreen.js
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+// TODO: replace with your real Google Custom Search credentials
+const GOOGLE_API_KEY = "AIzaSyAl9PUQsYkydEqlUPhQ50fZlync_WJczNI";
+const GOOGLE_CX = "715976fdfa93448f2";
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,7 +10,9 @@ import {
   View,
   ScrollView,
   Alert,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator,
+  Image,
 } from "react-native";
 import {
   TextInput,
@@ -29,6 +34,9 @@ const AddGameScreen = ({ navigation }) => {
   const [hasManual, setHasManual] = useState(false);
   const [hasBox, setHasBox] = useState(false);
   const [isPlatformDialogVisible, setPlatformDialogVisible] = useState(false);
+  const [imagePickerVisible, setImagePickerVisible] = useState(false);
+  const [imageResults, setImageResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   // List of allowed platforms, sorted alphabetically.
   const allowedPlatforms = [
@@ -102,6 +110,39 @@ const AddGameScreen = ({ navigation }) => {
     resetForm();
   };
 
+  async function fetchBoxArt() {
+    if (!title.trim() || !platform.trim()) {
+      Alert.alert("Missing Information", "Enter title and platform first.");
+      return;
+    }
+    setIsSearching(true);
+    const query = encodeURIComponent(`${title} ${platform} box art`);
+    const url = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${GOOGLE_CX}&searchType=image&num=10&q=${query}`;
+    try {
+      const res = await fetch(url);
+      const json = await res.json();
+      console.log("Google Image Search response:", json);
+      if (json.error) {
+        Alert.alert("Image Search Error", json.error.message);
+        setIsSearching(false);
+        return;
+      }
+      setImageResults(json.items || []);
+    } catch (err) {
+      Alert.alert("Image Search Failed", err.message);
+    } finally {
+      setIsSearching(false);
+    }
+  }
+
+  useEffect(() => {
+    if (imagePickerVisible) {
+      fetchBoxArt();
+    } else {
+      setImageResults([]);
+    }
+  }, [imagePickerVisible]);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -153,6 +194,16 @@ const AddGameScreen = ({ navigation }) => {
           />
         </View>
 
+        <View style={styles.formGroup}>
+          <Button
+            icon="image-search"
+            mode="outlined"
+            onPress={() => setImagePickerVisible(true)}
+            style={{ marginBottom: 15 }}
+          >
+            Fetch Box Art
+          </Button>
+        </View>
         <View style={styles.checkboxContainer}>
           <Checkbox.Item
             label="Manual"
@@ -184,6 +235,49 @@ const AddGameScreen = ({ navigation }) => {
         
       </ScrollView>
 
+      {/* Image Picker Modal */}
+      <Portal>
+        <Dialog
+          visible={imagePickerVisible}
+          onDismiss={() => setImagePickerVisible(false)}
+        >
+          <Dialog.Title>Choose Box Art</Dialog.Title>
+          <Dialog.Content style={{ height: 300 }}>
+            {isSearching ? (
+              <ActivityIndicator />
+            ) : imageResults.length === 0 ? (
+              <Text style={{ textAlign: 'center', marginTop: 20 }}>
+                No images found. Try again?
+              </Text>
+            ) : (
+              <ScrollView contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                {imageResults.map(item => (
+                  <TouchableOpacity
+                    key={item.link}
+                    onPress={() => {
+                      setImageUrl(item.link);
+                      setImagePickerVisible(false);
+                    }}
+                    style={{ margin: 5 }}
+                  >
+                    <Image
+                      source={{ uri: item.image.thumbnailLink }}
+                      style={{ width: 100, height: 100 }}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            )}
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={fetchBoxArt}>
+              {imageResults.length ? "Refresh" : "Search"}
+            </Button>
+            <Button onPress={() => setImagePickerVisible(false)}>Cancel</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
       {/* Platform Selector Modal */}
       <Portal>
         <Dialog
