@@ -1,8 +1,8 @@
 // screens/AddGameScreen.js
 import React, { useState, useContext, useEffect } from "react";
 // TODO: replace with your real Google Custom Search credentials
-const GOOGLE_API_KEY = "AIzaSyAl9PUQsYkydEqlUPhQ50fZlync_WJczNI";
-const GOOGLE_CX = "715976fdfa93448f2";
+const GOOGLE_API_KEY = "insert here";
+const GOOGLE_CX = "insert here";
 import {
   SafeAreaView,
   StyleSheet,
